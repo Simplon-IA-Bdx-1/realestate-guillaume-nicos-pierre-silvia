@@ -2,7 +2,6 @@
 
 ## Structuration de la base de données
 
-```
 **idannonce (int(11) - CLE PRIMAIRE - AUTOINCREMENT) :** Code du bien concerné par la recherche. *Exemple: 155142519* ;
 
 **typedebien (int(11)) :** Définit le type logement.
@@ -58,4 +57,3 @@
 
 **dpeC (varchar(10)) :** ???.
 *Exemple: 0 ou 1*
-```
