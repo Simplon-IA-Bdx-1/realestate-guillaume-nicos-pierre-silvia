@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  mer. 15 jan. 2020 à 15:13
+-- Généré le :  mer. 15 jan. 2020 à 15:17
 -- Version du serveur :  8.0.13-4
 -- Version de PHP :  7.2.24-0ubuntu0.18.04.1
 
@@ -34,7 +34,7 @@ CREATE TABLE `annonces` (
   `typedetransaction` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `position` int(11) NOT NULL,
   `codepostal` int(11) NOT NULL,
-  `codeinseed` int(11) NOT NULL,
+  `codeinsee` int(11) NOT NULL,
   `ville` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `etage` tinyint(4) NOT NULL,
   `idtypechauffage` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
