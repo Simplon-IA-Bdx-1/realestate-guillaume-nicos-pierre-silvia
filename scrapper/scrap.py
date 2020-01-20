@@ -21,7 +21,7 @@ def scrap_search_page(num_page):
     """Scrap the search page in order to find properties to scrap"""
 
     urls = []
+    idannonces = []
     #for ****
-    #    if idannonce n'est pas dans la BDD:
-    #        urls.append(url)
-    return urls
+    #    urls.append(url)
+    return (urls,idannonces)
