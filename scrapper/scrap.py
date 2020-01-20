@@ -4,6 +4,7 @@
 from annonce import Annonce
 import requests
 from bs4 import BeautifulSoup
+import json
 
 def scrap_annonce(url):
     """Scrap a page of a property"""
@@ -23,7 +24,7 @@ def scrap_annonce(url):
                     json_data = json.loads(data)
 
     if json_data is not None:
-        for key, value in json_data.items():
+        for key, value in list(json_data.items()):
             if key not in Annonce.fields:
                 json_data.pop(key)
                 #print(f"{key} : {value}")
