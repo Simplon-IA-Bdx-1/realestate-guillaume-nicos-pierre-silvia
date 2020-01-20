@@ -3,8 +3,8 @@ class Annonce(dict):
     fields = ['idannonce', 'codepostal', 'typedebien', 'position',
               'codepostal', 'codeinsee', 'ville', 'idtypechauffage',
               'idtypecuisine', 'naturebien', 'si_balcon', 'nb_chambres', 
-              'nb_pieces', 'si_sdbain', 'si_sdEau', 'nb_photos', 
-              'prix', 'surface', 'dpeL', 'dpeC',]# 'description']
+              'nb_pieces', 'si_sdbain', 'si_sdEau', 'nb_photos', 'etage',
+              'prix', 'surface', 'dpeL', 'dpeC', 'description', 'id']
 
     mandatory_fields = ['idannonce', 'prix']
    

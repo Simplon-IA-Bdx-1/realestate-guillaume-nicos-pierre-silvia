@@ -2,6 +2,8 @@
 
 import argparse
 from annonce import Annonce, to_csv
+from query import insert_annonce, get_all_annonces, connectToDatabase, disconnectDatabase
+
 #from query import ***
 #from scrap import  scrap_annonce, scrap_search_page
 
@@ -23,9 +25,13 @@ args = parser.parse_args()
 
 
 def scrap():
+    insertAnnonce(annonce)
     pass
 
 def db_to_csv(filename):
+    cnx = connectToDatabase()
+    to_csv(filename, get_all_annonces(cnx))
+    disconnectDatabase(cnx)
     print(filename)
 
 
@@ -34,3 +40,4 @@ if args.cmd == 'scrap':
 
 elif args.cmd == 'csv':
     db_to_csv(args.file)
+
