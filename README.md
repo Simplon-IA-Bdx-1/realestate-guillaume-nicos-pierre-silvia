@@ -1,4 +1,4 @@
-<p align="center"><img width=45% src="https://zupimages.net/up/20/03/9o55.png"></p>
+<p align="center"><img width=45% src="https://zupimages.net/up/20/03/0tej.png"></p>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 ![Python](https://img.shields.io/badge/python-v3.7-blue.svg)
