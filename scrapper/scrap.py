@@ -35,14 +35,27 @@ def scrap_annonce(url):
     annonce = Annonce(**{'idannonce':12345, 'prix':12345})
     return annonce
 
-def scrap_search_page(num_page):
+
+
+def scrap_search_page(num_page):  
     """Scrap the search page in order to find properties to scrap"""
 
+    url = "https://www.seloger.com/list.htm?projects=2&types=1,2&natures=1,2,4&places=[{ci:330063}]&enterprise=0&qsVersion=1.0&LISTING-LISTpg="\
+         + str(num_page)
+
+    page = requests.get(url)
+        
+    soup = BeautifulSoup(page.text, 'html.parser')
+    
+    annonces = soup.find_all("a", attrs={"name": "classified-link"})
     urls = []
-    idannonces = []
-    #for ****
-    #    urls.append(url)
-    return (urls,idannonces)
+
+    for annonce in annonces:
+        urls.append(annonce['href'])
+    # print(urls)
+
+    return urls
+
 
 if __name__ == "__main__":
 
