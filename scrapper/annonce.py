@@ -34,7 +34,7 @@ class Annonce(dict):
     def get_all_fields_as_string(self):
         strings = []
         for key in self.fields:
-            strings.append("'{}'".format(key))
+            strings.append("`{}`".format(key))
         return "(" + ", ".join(strings) + ")"
 
     def get_fields(self):
@@ -47,7 +47,7 @@ class Annonce(dict):
     def get_fields_as_string(self):
         strings = []
         for key in self.keys():
-            strings.append("'{}'".format(key))
+            strings.append("`{}`".format(key))
         return "(" + ", ".join(strings) + ")"
 
 import csv
