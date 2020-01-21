@@ -3,6 +3,8 @@
 import argparse
 from annonce import Annonce, to_csv
 from query import insert_annonce, get_all_annonces, connectToDatabase, disconnectDatabase
+from scrap import scrap_annonce, scrap_search_page
+from time import sleep
 
 #from query import ***
 #from scrap import  scrap_annonce, scrap_search_page
@@ -15,7 +17,7 @@ from query import insert_annonce, get_all_annonces, connectToDatabase, disconnec
 # need function to get all annonces from BDD
 
 parser = argparse.ArgumentParser(description='Scrap and manage scrapped data')
-cmd_subparser = parser.add_subparsers(title='command', dest='cmd')
+cmd_subparser = parser.add_subparsers(title='command', dest='cmd', required=True)
 
 scrap_parser = cmd_subparser.add_parser('scrap', help='')
 csv_parser = cmd_subparser.add_parser('csv', help='')
@@ -25,7 +27,15 @@ args = parser.parse_args()
 
 
 def scrap():
-    insertAnnonce(annonce)
+    urls =  scrap_search_page(1)
+    sleep(5)
+    print(urls)
+    for url in urls:
+        annonce = scrap_annonce(url)
+        sleep(5)
+        print(annonce)
+        if annonce is not None:
+            insertAnnonce(annonce)
     pass
 
 def db_to_csv(filename):
