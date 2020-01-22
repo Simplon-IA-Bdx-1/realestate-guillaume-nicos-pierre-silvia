@@ -46,6 +46,7 @@ def scrap():
             with open(filename) as file:
                 annonce = scrap_annonce_text(file.read())
                 if annonce is not None:
+                    #print(annonce)
                     insert_annonce(cnx,annonce)
     disconnectDatabase(cnx)
         

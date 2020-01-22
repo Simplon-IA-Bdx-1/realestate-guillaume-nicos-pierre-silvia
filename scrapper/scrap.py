@@ -18,7 +18,11 @@ def scrap_annonce_text(content):
                 if "var ava_data" in lines[1]:
                     data = script.contents[0]
                     data = data[data.find("products : ["):data.find("//")].strip("products : [")
-                    json_data = json.loads(data)
+                    try:
+                        json_data = json.loads(data)
+                    except:
+                        print(data)
+                        return None
 
     if json_data is not None:
         for key, value in list(json_data.items()):
