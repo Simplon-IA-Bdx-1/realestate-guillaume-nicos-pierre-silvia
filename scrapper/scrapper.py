@@ -3,8 +3,9 @@
 import argparse
 from annonce import Annonce, to_csv
 from query import insert_annonce, get_all_annonces, connectToDatabase, disconnectDatabase
-from scrap import scrap_annonce, scrap_search_page
+from scrap import scrap_annonce, scrap_search_page, scrap_annonce_text
 from time import sleep
+import glob, os
 
 #from query import ***
 #from scrap import  scrap_annonce, scrap_search_page
@@ -20,6 +21,7 @@ parser = argparse.ArgumentParser(description='Scrap and manage scrapped data')
 cmd_subparser = parser.add_subparsers(title='command', dest='cmd', required=True)
 
 scrap_parser = cmd_subparser.add_parser('scrap', help='')
+scrap_parser.add_argument('--dir', help='scrap a directory containing html files')
 csv_parser = cmd_subparser.add_parser('csv', help='')
 csv_parser.add_argument('--file', help='filename', required=True)
 
@@ -27,16 +29,25 @@ args = parser.parse_args()
 
 
 def scrap():
-    urls =  scrap_search_page(1)
-    sleep(5)
-    print(urls)
-    for url in urls:
-        annonce = scrap_annonce(url)
+    cnx = connectToDatabase()
+    if args.dir is None:
+        urls =  scrap_search_page(1)
         sleep(5)
-        print(annonce)
-        if annonce is not None:
-            insertAnnonce(annonce)
-    pass
+        print(urls)
+        for url in urls:
+            annonce = scrap_annonce(url)
+            sleep(5)
+            print(annonce)
+            if annonce is not None:
+                insert_annonce(cnx,annonce)
+    else:
+        for filename in glob.glob(args.dir + "/*.html"):
+            with open(filename) as file:
+                annonce = scrap_annonce_text(file.read())
+                if annonce is not None:
+                    insert_annonce(cnx,annonce)
+    disconnectDatabase(cnx)
+        
 
 def db_to_csv(filename):
     cnx = connectToDatabase()
