@@ -25,6 +25,8 @@
 **idtypecuisine (varchar(255)) :** 0 si pas de cuisine / 1 si cuisine.
 *Exemple: 0 ou 1*
 
+**etage :** à quel étage.
+
 **naturebien (tinyint(4)) :** ???.
 *Exemple: 0 ou 1*
 
@@ -52,8 +54,8 @@
 **surface (smallint(6)) :** Surface habitable en m2.
 *Exemple: 95*
 
-**dpeL (varchar(10)) :** ???.
+**dpeL (varchar(10)) :** Note du Diagnostic de performance énergétique en lettre
 *Exemple: 0 ou 1*
 
-**dpeC (varchar(10)) :** ???.
+**dpeC (varchar(10)) :** Note du Diagnostic de performance énergétique en chiffre
 *Exemple: 0 ou 1*
