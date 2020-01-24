@@ -6,10 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 import json
 
-def scrap_annonce(url):
-    """Scrap a page of a property"""
-    page = requests.get(url)
-    content = page.text
+def scrap_annonce_text(content):
     soup = BeautifulSoup(content, "html.parser")
 
     scripts = soup.find_all("script")
@@ -21,7 +18,11 @@ def scrap_annonce(url):
                 if "var ava_data" in lines[1]:
                     data = script.contents[0]
                     data = data[data.find("products : ["):data.find("//")].strip("products : [")
-                    json_data = json.loads(data)
+                    try:
+                        json_data = json.loads(data)
+                    except:
+                        print(data)
+                        return None
 
     if json_data is not None:
         for key, value in list(json_data.items()):
@@ -29,13 +30,12 @@ def scrap_annonce(url):
                 json_data.pop(key)
                 #print(f"{key} : {value}")
         return Annonce(**json_data)
-    return None
-    
 
-    annonce = Annonce(**{'idannonce':12345, 'prix':12345})
-    return annonce
-
-
+def scrap_annonce(url):
+    """Scrap a page of a property"""
+    page = requests.get(url)
+    content = page.text
+    return scrap_annonce_text(content)
 
 def scrap_search_page(num_page):  
     """Scrap the search page in order to find properties to scrap"""
