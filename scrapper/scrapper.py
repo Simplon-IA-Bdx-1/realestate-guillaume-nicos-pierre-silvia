@@ -27,8 +27,9 @@ csv_parser.add_argument('--file', help='filename', required=True)
 
 args = parser.parse_args()
 
-
+# This function is the main one : launch all the scraping process.
 def scrap():
+    """Launch the process to scrap the page of a special ad"""
     cnx = connectToDatabase()
     if args.dir is None:
         urls =  scrap_search_page(1)
@@ -52,8 +53,9 @@ def scrap():
                     insert_annonce(cnx,annonce)
     disconnectDatabase(cnx)
         
-
+# Creates a csv with all ads requested.
 def db_to_csv(filename):
+    """Creates a csv with all ads requested."""
     cnx = connectToDatabase()
     to_csv(filename, get_all_annonces(cnx))
     disconnectDatabase(cnx)

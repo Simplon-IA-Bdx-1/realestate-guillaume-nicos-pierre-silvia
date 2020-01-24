@@ -6,7 +6,9 @@ import requests
 from bs4 import BeautifulSoup
 import json
 
+# Function which returns a json of keys and values on an ad's webpage.
 def scrap_annonce_text(content):
+    """Returns a json with all information for a special ad."""
     soup = BeautifulSoup(content, "html.parser")
 
     scripts = soup.find_all("script")
@@ -45,12 +47,15 @@ def scrap_annonce_text(content):
         #print(diagnostic_tag)
         return Annonce(**json_data)
 
+# The function needs you to give an URL.
 def scrap_annonce(url):
     """Scrap a page of a property"""
     page = requests.get(url)
     content = page.text
     return scrap_annonce_text(content)
 
+# The function is waiting for a page number to scrap
+# Example : for page 6, "num_page" = 6
 def scrap_search_page(num_page):  
     """Scrap the search page in order to find properties to scrap"""
 

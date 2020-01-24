@@ -56,14 +56,30 @@ All modules are included into the [requirements.txt](https://github.com/Simplon-
 
 ## **Installation**
 
-Exemple :
 ```bash
 pip install -r requirements.txt
 ```
 
-## **Licence**
+## **Utilisation**
 
-Free Licence
+### By command lines
+
+- If you want to scrap the first page of housings to rent at Bordeaux on Seloger.com
+```bash
+./scrapper.py scrap
+```
+- If you want to scrap the ads on a directory. Each page will be downloaded into a html file : *ad_id*.html
+```bash
+./scrapper.py scrap --dir <dirname>
+```
+
+- If you want to create a CSV file from the database
+```bash
+./scrapper.py csv --file <csvfile>
+```
+### By our API
+
+*To be completed*
 
 <br />
 
@@ -76,5 +92,6 @@ If you like our work :
 **Pierre** : [GitHub](https://github.com/pierremirandebroucas)<br/>
 **Silvia** : [GitHub](https://github.com/Beatrix84)
 
-:clap:
+<br/>
 
+<p align="center"><img width=35% src="https://zupimages.net/up/20/04/62bu.jpg"></p>

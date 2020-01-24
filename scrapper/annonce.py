@@ -12,7 +12,7 @@ class Annonce(dict):
 
         for key in self.mandatory_fields:
             if key not in kwargs:
-                raise Exception('{} field is madantory'.format(key) )
+                raise Exception('{} field is mandatory'.format(key) )
 
         for key,value in kwargs.items():
             if key in self.fields:
@@ -24,6 +24,7 @@ class Annonce(dict):
 # in order to be passed as data with a prepared statement
 # or to write a csv file with csv.writer
     def get_all_values(self):
+        """Gets all values for all fields of the ad."""
         values = []
         for key in self.fields:
             values.append(self.get(key, None))
@@ -32,19 +33,23 @@ class Annonce(dict):
 # Return a string with all fields in order in the format "('field1', 'field2, ...)"
 # in order to be used to build a SQL query
     def get_all_fields_as_string(self):
+        """Returns a string vector containing all fields."""
         strings = []
         for key in self.fields:
             strings.append("`{}`".format(key))
         return "(" + ", ".join(strings) + ")"
 
     def get_fields(self):
+        """Get fields but separately."""
         return list(self.keys())
 
 # Return the list of defined fields (not None) in the same order as get_fields()
     def get_values(self):
+        """Get values but separately."""
         return list(self.values())
 
     def get_fields_as_string(self):
+        """Returns a string vector containing all values of all fields."""
         strings = []
         for key in self.keys():
             strings.append("`{}`".format(key))
@@ -54,6 +59,7 @@ import csv
 
 # Write a csv file from a list of Annonce objects
 def to_csv(filename, annonces):
+    """Write a csv file from a list of Annonce objects"""
     with open(filename, "w", encoding='utf-8', newline='\n') as csv_file:
         writer = csv.writer(csv_file)
         writer.writerow(annonces[0].fields)
