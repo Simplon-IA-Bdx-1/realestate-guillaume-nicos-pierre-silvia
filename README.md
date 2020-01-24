@@ -10,9 +10,13 @@
 
 # Content of the project
 
-|   Features   |  Script to see  |  Description  |
-|     :---:    |      :---:      |     :---:      |
-| Scrapping de SeLoger.com   | [ICI](https://github.com/Simplon-IA-Bdx-1/realestate-guillaume-nicos-pierre-silvia/blob/master/scrapper/scrapper.py)      | Je ne suis pas sur ce que je mets dedans
+|   Features   |  Script to see  |
+|     :---:    |      :---:      |
+| Structure de la base de données   | [ICI](https://github.com/Simplon-IA-Bdx-1/realestate-guillaume-nicos-pierre-silvia/blob/master/BDD/README.md)      |
 | Script de création de la base de données     |  [ICI](https://github.com/Simplon-IA-Bdx-1/realestate-guillaume-nicos-pierre-silvia/blob/master/BDD/annonces.sql)        |
 | Requêtes avec la base de données     |  [ICI](https://github.com/Simplon-IA-Bdx-1/realestate-guillaume-nicos-pierre-silvia/blob/master/scrapper/query.py)        |
 | La classe "annonce"     |  [ICI](https://github.com/Simplon-IA-Bdx-1/realestate-guillaume-nicos-pierre-silvia/blob/master/scrapper/annonce.py)        |
+| Fonctions de scrapping  | [ICI](https://github.com/Simplon-IA-Bdx-1/realestate-guillaume-nicos-pierre-silvia/blob/master/scrapper/scrap.py)      |
+| Script Selenium  | [ICI](https://github.com/Simplon-IA-Bdx-1/realestate-guillaume-nicos-pierre-silvia/blob/master/scrapper/selenium.ipynb)      |
+| Scrapping de SeLoger.com   | [ICI](https://github.com/Simplon-IA-Bdx-1/realestate-guillaume-nicos-pierre-silvia/blob/master/scrapper/scrapper.py)      |
+| Data processing, création du modèle et prédiction  | [ICI](https://github.com/Simplon-IA-Bdx-1/realestate-guillaume-nicos-pierre-silvia/blob/master/notebooks/Model.ipynb)      |
