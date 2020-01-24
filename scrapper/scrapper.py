@@ -20,9 +20,9 @@ import glob, os
 parser = argparse.ArgumentParser(description='Scrap and manage scrapped data')
 cmd_subparser = parser.add_subparsers(title='command', dest='cmd', required=True)
 
-scrap_parser = cmd_subparser.add_parser('scrap', help='')
+scrap_parser = cmd_subparser.add_parser('scrap', help='scrap the first search page')
 scrap_parser.add_argument('--dir', help='scrap a directory containing html files')
-csv_parser = cmd_subparser.add_parser('csv', help='')
+csv_parser = cmd_subparser.add_parser('csv', help='download the database as a csv file')
 csv_parser.add_argument('--file', help='filename', required=True)
 
 args = parser.parse_args()
