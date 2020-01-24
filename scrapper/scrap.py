@@ -29,6 +29,20 @@ def scrap_annonce_text(content):
             if key not in Annonce.fields:
                 json_data.pop(key)
                 #print(f"{key} : {value}")
+        selected_description = []
+        description_tag =  soup.findAll('section', class_='categorie')
+        #diagnostic_tag = soup.find('section', class_='categorie u-padb')
+        for theme in description_tag :
+            #if theme != diagnostic_tag :
+            #print(theme.get_text())
+            selected_description.append(theme.get_text())
+        if len(selected_description) > 1:
+            selected_description.pop()
+        
+        json_data['description'] = "".join(selected_description)
+        #for blabla in description_tag:
+        print(selected_description)
+        #print(diagnostic_tag)
         return Annonce(**json_data)
 
 def scrap_annonce(url):
