@@ -1,61 +1,88 @@
-# BASE DE DONNEES
+# DATABASE
 
-## Structuration de la base de données
+## Structure
 
-**idannonce (int(11) - CLE PRIMAIRE - AUTOINCREMENT) :** Code du bien concerné par la recherche. *Exemple: 155142519* ;
+|   Fields  |  Description  |  Example |
+|     :---:    |      :---:      |         :---:         |
+|id <br/>(Primary key - Unique) | Id in the database. | 100 |<br/>
+|idannonce <br/> | Identification number of the concerned good. | 155142519 |<br/>
+|typedebien | Type of the housing. | Appartement |<br/>
+|codepostal | Postal code of the city. | 75002 |<br/>
+|codeinsee | Postal code & quarter identification. | 75102 |<br/>
+|ville | Geographical location of the housing. | Paris |<br/>
+|etage | At which stage is it located. | 3 |<br/>
+|idtypechauffage | Characteristics of property heating (if heating). | Individuel électrique |<br/>
+|idtypecuisine | Presence of a kitchen or not. | 0 if there isn't a kitchen / 1 if there is |<br/>
+|si_balcon | Presence of a balcony or not. | 0 if there isn't a balcony / 1 if there is |<br/>
+|nb_chambres | How many bedrooms in the housing. | 2 |<br/>
+|nb_pieces | How many rooms in the housing. | 2 |<br/>
+|si_sdbain | Presence of a bath or not. | 0 if there isn't a bath / 1 if there is |<br/>
+|si_sdEau | Presence of a shower or not. | 0 if there isn't at least one shower / 1 if there is |<br/>
+|nb_photos | How many pictures in the ad. | 3 |<br/>
+|surface | Living space in square meters. | 95 |<br/>
+|dpeL | Note of the Energy performance diagnosis in letter (positioning in consumption) - Letter from A to G. | A |<br/>
+|dpeC | Note of the Energy performance diagnosis (positioning in greenhouse gases) - Number included in a scale associated with the dpeL.| 50 |<br/>
+|description | Ad body with infos about the housing. | Situé à Bordeaux, le bien propose... |<br/>
+|prix | Monthly rent, charges included, in euros. | 750 |<br/>
 
-**typedebien (int(11)) :** Définit le type logement.
-*Exemple: Appartement* ;
+<br/>
 
-**position (int(11)) :** ???
-*Exemple: 0 ou 1*
+Particular Datas explanation :
 
-**codepostal (int(11)) :** Code postal de la ville où est situé le bien.
-*Exemple: 75002*
-
-**codeinsee (int(11)) :** Numéro composé du code postal ainsi que le numéro du quartier.
-*Exemple: 75102*
-
-**ville (varchar(255)) :** Situation géographique du bien concerné.
-*Exemple: Paris*
-
-**idtypechauffage (varchar(255)) :** Caractéristiques du chauffage du bien (si chauffage).
-*Exemple: individuel électrique*
-
-**idtypecuisine (varchar(255)) :** 0 si pas de cuisine / 1 si cuisine.
-*Exemple: 0 ou 1*
-
-**etage :** à quel étage.
-
-**naturebien (tinyint(4)) :** ???.
-*Exemple: 0 ou 1*
-
-**si_balcon (tinyint(4)) :** 0 si pas de balcon / 1 si balcon.
-*Exemple: 0 ou 1*
-
-**nb_chambres (tinyint(4)) :** Nombre de chambres dans le logement.
-*Exemple: 2*
-
-**nb_pieces (tinyint(4)) :** Nombre de pièces dans le logement.
-*Exemple: 2*
-
-**si_sdbain (tinyint(4)) :** 0 si pas de baignoire / 1 si baignoire.
-*Exemple: 0 ou 1*
-
-**si_sdEau (tinyint(4)) :** 0 si pas de douche / 1 si douche.
-*Exemple: 0 ou 1*
-
-**nb_photos (tinyint(4)) :** Nombre de photos présentes dans l'annonce.
-*Exemple: 3*
-
-**prix (smallint(6)) :** Montant du loyer mensuel, charges comprises.
-*Exemple: 750*
-
-**surface (smallint(6)) :** Surface habitable en m2.
-*Exemple: 95*
-
-**dpeL (varchar(10)) :** Note du Diagnostic de performance énergétique en lettre
-*Exemple: 0 ou 1*
-
-**dpeC (varchar(10)) :** Note du Diagnostic de performance énergétique en chiffre
-*Exemple: 0 ou 1*
+<ul>
+<li>typedebien : Type of the housing</li>
+    <ul>
+        <li>Appartement</li>
+        <li>Maison / Villa</li>
+    </ul><br/>
+<li>idtypechauffage : Characteristics of property heating (if heating)</li>
+    <ul>
+        <li>individuel gaz</li>
+        <li>électrique</li>
+        <li>individuel électrique radiateur</li>
+        <li>individuel gaz radiateur</li>
+        <li>central</li>
+        <li>individuel électrique</li>
+        <li>central électrique sol</li>
+        <li>individuel</li>
+        <li>électrique radiateur</li>
+        <li>central électrique mixte</li>
+        <li>gaz collectif radiateur</li>
+        <li>central radiateur</li>
+        <li>gaz collectif</li>
+        <li>individuel radiateur</li>
+        <li>gaz</li>
+        <li>central électrique</li>
+        <li>gaz radiateur</li>
+        <li>central électrique radiateur</li>
+        <li>climatisation réversible individuelle</li>
+        <li>radiateur</li>
+        <li>gaz collectif sol</li>
+        <li>individuel fuel radiateur</li>
+        <li>climatisation réversible</li>
+        <li>climatisation réversible centrale</li>
+        <li>central fuel</li>
+        <li>gaz collectif mixte</li>
+    </ul><br/>
+<li>idtypecuisine : Presence of a kitchen or not.</li>
+    <ul>
+        <li>américaine équipée</li>
+        <li>séparée</li>
+        <li>équipée</li>
+        <li>américaine</li>
+        <li>coin cuisine</li>
+        <li>aucune</li>
+        <li>séparée équipée</li>
+        <li>coin cuisine équipé</li>
+    </ul><br/>
+<li>dpeC : Note of the Energy performance diagnosis (positioning in greenhouse gases)</li>
+    <ul>
+        <li>A : 0 - 50</li>
+        <li>B : 51 - 90</li>
+        <li>C : 91 - 150</li>
+        <li>D : 151 - 230</li>
+        <li>E : 231 - 330</li>
+        <li>F : 331 - 450</li>
+        <li>G : 451 - ...</li>
+    </ul><br/>
+</ul>

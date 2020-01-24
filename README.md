@@ -1,27 +1,19 @@
 <p align="center"><img width=45% src="https://zupimages.net/up/20/03/0tej.png"></p>
 
-<center>
-
-![Python](https://img.shields.io/badge/python-v3.7-blue.svg)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Python](https://img.shields.io/badge/python-v3.7-blue.svg)
 ![Jupyter Notebook](https://img.shields.io/badge/Jupyter%20Notebooks-yes-red)
 <a href="https://github.com/Simplon-IA-Bdx-1/realestate-guillaume-nicos-pierre-silvia/commits/master"><img src="https://img.shields.io/github/last-commit/Simplon-IA-Bdx-1/realestate-guillaume-nicos-pierre-silvia/master"/></a>
 <!-- ![Docker](https://img.shields.io/badge/docker-no-green.svg) -->
 
-</center>
 <br/>
 
 # Content of the project
-
-<center>
 
 |   Database   |  Script to see  |  [For more details](https://github.com/Simplon-IA-Bdx-1/realestate-guillaume-nicos-pierre-silvia/blob/master/BDD/README.md) |
 |     :---:    |      :---:      |         :---:         |
 | &nbsp;&nbsp;Database creation script&nbsp; | [ICI](https://github.com/Simplon-IA-Bdx-1/realestate-guillaume-nicos-pierre-silvia/blob/master/BDD/annonces.sql) | |
 
-</center>
 <br/>
-
-<center>
 
 |   Scrapping  |  Script to see  |  [For more details](https://github.com/Simplon-IA-Bdx-1/realestate-guillaume-nicos-pierre-silvia/blob/master/scrapper/README.md) |
 |     :---:    |      :---:      |         :---:         |
@@ -31,10 +23,7 @@
 | Selenium's script | [ICI](https://github.com/Simplon-IA-Bdx-1/realestate-guillaume-nicos-pierre-silvia/blob/master/scrapper/selenium.ipynb) | |
 | Scrapping of SeLoger.com | [ICI](https://github.com/Simplon-IA-Bdx-1/realestate-guillaume-nicos-pierre-silvia/blob/master/scrapper/scrapper.py) | |
 
-</center>
 <br/>
-
-<center>
 
 |   Notebook   |  Script to see  |  [For more details](https://github.com/Simplon-IA-Bdx-1/realestate-guillaume-nicos-pierre-silvia/blob/master/notebooks/README.md) |
 |     :---:    |      :---:      |         :---:         |
@@ -42,14 +31,12 @@
 | Model creation | [ICI](https://github.com/Simplon-IA-Bdx-1/realestate-guillaume-nicos-pierre-silvia/blob/master/notebooks/Model.ipynb) | |
 | Prediction | [ICI](https://github.com/Simplon-IA-Bdx-1/realestate-guillaume-nicos-pierre-silvia/blob/master/notebooks/Model.ipynb) | |
 
-</center>
 <br />
 
 # Initialisation of the project
 
 ## **Packages required** 
 
-<center>
 
 |         Module        |        Version        |
 |          :---:        |         :---:         |
@@ -63,7 +50,6 @@
 |beautifulsoup4         |                       |
 |xgboost                |          0.80         |
 
-</center>
 <br />
 
 All modules are included into the [requirements.txt](https://github.com/Simplon-IA-Bdx-1/realestate-guillaume-nicos-pierre-silvia/blob/master/requirements.txt)
@@ -89,4 +75,6 @@ If you like our work :
 **Nicolas** : [GitHub](https://github.com/nicolasseverino)<br/>
 **Pierre** : [GitHub](https://github.com/pierremirandebroucas)<br/>
 **Silvia** : [GitHub](https://github.com/Beatrix84)
+
+:clap:
 
