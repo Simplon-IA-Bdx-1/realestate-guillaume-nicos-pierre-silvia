@@ -43,8 +43,10 @@ def scrap():
     else:
         for filename in glob.glob(args.dir + "/*.html"):
             print(filename)
-            with open(filename) as file:
+            with open(filename, errors="ignore") as file:
                 annonce = scrap_annonce_text(file.read())
+                
+
                 if annonce is not None:
                     #print(annonce)
                     insert_annonce(cnx,annonce)
