@@ -1,8 +1,8 @@
 class Annonce(dict):
 
-    fields = ['idannonce', 'position', 'typedebien', 'codepostal',
+    fields = ['idannonce', 'typedebien', 'codepostal',
               'codeinsee', 'ville', 'idtypechauffage',
-              'idtypecuisine', 'naturebien', 'si_balcon', 'nb_chambres', 
+              'idtypecuisine', 'si_balcon', 'nb_chambres', 
               'nb_pieces', 'si_sdbain', 'si_sdEau', 'nb_photos', 'etage',
               'prix', 'surface', 'dpeL', 'dpeC', 'description', 'id']
 
