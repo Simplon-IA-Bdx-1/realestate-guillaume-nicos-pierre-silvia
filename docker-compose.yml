@@ -24,7 +24,7 @@ services:
       - 8080:80
   flask:
     build:
-      context: .
+      context: ./
       dockerfile: ./prediction_container/Dockerfile
     container_name: flask
     image: flask-py
