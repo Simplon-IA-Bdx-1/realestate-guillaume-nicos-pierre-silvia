@@ -22,12 +22,15 @@ services:
       - database_net
     ports:
       - 8080:80
-  prediction:
+  flask:
     build:
       context: ./prediction_container
       dockerfile: Dockerfile
+    container_name: flask
+    image: flask-py
+    restart: always
     ports:
-      -8081:5000
+      - 8081:5000
 
 networks:
   database_net:
