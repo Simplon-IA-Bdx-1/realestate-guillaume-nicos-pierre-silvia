@@ -7,6 +7,8 @@ WORKDIR /predictor
 COPY ../models /predictor
 RUN pip install -r requirements.txt
 RUN pip freeze
+
+EXPOSE 5000
 #COPY /usr/ /usr/bin/flask/flask.py 
 
 
