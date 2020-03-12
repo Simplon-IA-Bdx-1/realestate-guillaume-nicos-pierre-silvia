@@ -7,7 +7,9 @@ from annonce import Annonce
 # Credentials are hidden into environment variables 
 # for more security.
 def connectToDatabase():
-"""Connexion to the database.""" 
+    """
+    Connexion to the database.
+    """ 
     load_dotenv()
     return mysql.connector.connect(
         user=os.getenv("MYSQL_USER"),
@@ -18,7 +20,9 @@ def connectToDatabase():
 
 # Disconnection from the database
 def disconnectDatabase(cnx):
-"""Disconnection from the database."""
+    """
+    Disconnection from the database.
+    """
     cnx.close()
 
 # The cursor is a buffering mechanism for browsing 
@@ -34,20 +38,26 @@ def closeCursor(cursor):
 # in the database for the id you mention.
 # Query which returns a dictionnary.
 def findQuery(id):
-    """Select information for a special ad."""
+    """
+    Select information for a special ad.
+    """
     return ("SELECT * FROM annonces WHERE id = {} LIMIT 1".format(id))
 
 # The function selects all the information stored
 # in the table "Annonces".
 # Query which returns a dictionnary of dictionnary.
 def findAllQuery():
-    """Select information for all ads."""
+    """
+    Select information for all ads.
+    """
     return ("SELECT * FROM annonces")
 
 # The function gets all ads of our database.
 # Returns a dictionnary.
 def get_all_annonces(cnx):
-    """Returns all ads on the database."""
+    """
+    Returns all ads on the database.
+    """
     statement = findAllQuery()
     cursor = createCursor(cnx)
     cursor.execute(statement)
@@ -66,7 +76,9 @@ def get_all_annonces(cnx):
 # Each idannonce being unique, the function
 # prevents any duplicate insertion.
 def insert_annonce(cnx, annonce):
-    """Insert an ad in the database - Not duplicated."""
+    """
+    Insert an ad in the database - Not duplicated.
+    """
     stmnt_list = []
     stmnt_list.append("INSERT INTO `{}` {}".format('annonces', annonce.get_fields_as_string()))
     stmnt_list.append("VALUES (" + ", ".join(["%s"] * len(annonce.get_fields())) + ")" )
