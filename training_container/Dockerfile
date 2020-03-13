@@ -7,6 +7,8 @@ COPY ./training_container/Model.py /app/python/training.py
 COPY ./scrapper/query.py /app/python/query.py
 COPY ./scrapper/annonce.py /app/python/annonce.py
 COPY ./training_container/.env /app/python/.env
+COPY ./training_container/init.sh /app/init.sh
+RUN chmod u+x /app/init.sh
 
 WORKDIR /app/python
 
@@ -18,8 +20,8 @@ RUN chmod 0644 /etc/crond.d/training.cron
 RUN crontab -u root /etc/crond.d/training.cron
 RUN touch /var/log/cron.log
 
-CMD cron && tail -f /var/log/cron.log
-
+#CMD cron && tail -f /var/log/cron.log
+CMD /app/init.sh
 
 
 

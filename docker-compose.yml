@@ -33,6 +33,8 @@ services:
       - 8081:5000
     volumes:
       - ./models:/app/www/models
+    networks:
+      - database_net
   trainer:
     build:
       context: ./
