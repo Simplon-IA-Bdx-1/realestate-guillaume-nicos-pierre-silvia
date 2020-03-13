@@ -31,6 +31,20 @@ services:
     restart: always
     ports:
       - 8081:5000
+  trainer:
+    build:
+      context: ./
+      dockerfile: ./training_container/Dockerfile
+    container_name: trainer_container
+    image: trainer_img
+    restart: always
+    networks:
+      - database_net
+#    environment:
+#      - MYSQL_HOST=database
+#      - MYSQL_USER=realestate
+#      - MYSQL_PASSWORD=realestate
+#      - MYSQL_DATABASE=realestate
 
 networks:
   database_net:

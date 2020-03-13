@@ -1,0 +1,9 @@
+requests
+joblib
+scikit-learn==0.22
+xgboost==0.80
+pandas
+numpy
+mysql-connector-python
+python-dotenv
+pandas
