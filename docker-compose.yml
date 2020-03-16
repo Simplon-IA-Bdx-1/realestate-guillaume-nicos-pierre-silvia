@@ -46,11 +46,11 @@ services:
       - database_net
     volumes:
       - ./models:/app/models
-#    environment:
-#      - MYSQL_HOST=database
-#      - MYSQL_USER=realestate
-#      - MYSQL_PASSWORD=realestate
-#      - MYSQL_DATABASE=realestate
+    environment:
+      - MYSQL_HOST=database
+      - MYSQL_USER=realestate
+      - MYSQL_PASSWORD=realestate
+      - MYSQL_DATABASE=realestate
 
 networks:
   database_net:

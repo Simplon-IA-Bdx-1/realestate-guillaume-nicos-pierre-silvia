@@ -6,10 +6,8 @@ COPY ./training_container/requirements.txt /app/python/requirements.txt
 COPY ./training_container/Model.py /app/python/training.py
 COPY ./scrapper/query.py /app/python/query.py
 COPY ./scrapper/annonce.py /app/python/annonce.py
-COPY ./training_container/.env /app/python/.env
 COPY ./training_container/init.sh /app/init.sh
 RUN chmod 0700 /app/init.sh
-
 RUN dos2unix /app/init.sh
 
 WORKDIR /app/python
