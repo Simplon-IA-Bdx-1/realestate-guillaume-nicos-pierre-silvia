@@ -4,7 +4,7 @@ RUN apt-get update && apt-get -y install cron dos2unix bsdtar
 
 RUN curl http://chromedriver.storage.googleapis.com/80.0.3987.106/chromedriver_linux64.zip | bsdtar -xvf - -C /usr/local/bin/
 
-COPY ./training_container/requirements.txt /app/python/requirements.txt
+COPY ./selenium_scrapper_container/requirements.txt /app/python/requirements.txt
 COPY ./scrapper/query.py /app/python/query.py
 COPY ./scrapper/annonce.py /app/python/annonce.py
 COPY ./training_container/.env /app/python/.env
