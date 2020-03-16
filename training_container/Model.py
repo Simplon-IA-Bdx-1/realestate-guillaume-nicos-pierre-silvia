@@ -21,17 +21,23 @@ from datetime import datetime
 import numpy as np
 from query import  get_all_annonces,  connectToDatabase,  disconnectDatabase
 from annonce import Annonce, to_csv
+from os import getcwd, mkdir, path
 
 now = datetime.now()
-csv_filename = 'fulltrain-' + now.strftime("%Y-%d-%m-%Hh%Ms") + '.csv'
+base_dir = path.dirname(getcwd())
+model_dir = base_dir + '/models'
+if not path.exists(model_dir):
+    mkdir(model_dir)
+csv_filename = 'fulltrain-' + now.strftime("%Y-%d-%m-%Hh%Mm") + '.csv'
+csv_path = path.join(model_dir, csv_filename)
 cnx = connectToDatabase()
-to_csv(csv_filename, get_all_annonces(cnx))
+to_csv(csv_path, get_all_annonces(cnx))
 
 SEED=42
 
 #get_ipython().system('../scrapper/scrapper.py csv --file ./fulltrain.csv')
 
-df_full = read_csv(csv_filename, index_col='idannonce')
+df_full = read_csv(csv_path, index_col='idannonce')
 
 chauffageNArows = df_full['idtypechauffage'] == 0
 df_full.loc[chauffageNArows,'idtypechauffage'] = np.nan
@@ -45,19 +51,20 @@ df_full.loc[cuisineNArows,'idtypecuisine'] = np.nan
 df_full['surface'] = df_full['surface'].str.replace(",", ".").astype(float)
 
 nonzero_surface = df_full['surface'] != 0
-df_full = df_full.loc[nonzero_surface,:]
+df_full = df_full.loc[nonzero_surface, :]
 
 notcolocation_rows = ~(df_full['description'].str.contains("([Cc]oloc)")).astype('Bool')
-df_full = df_full.loc[notcolocation_rows,:]
+df_full = df_full.loc[notcolocation_rows, :]
 
-df_full = df_full.drop(['id','ville', 'codeinsee','nb_photos', 'dpeL', 'description'], axis=1)
+df_full = df_full.drop(['id', 'ville', 'codeinsee', 'nb_photos', 'dpeL',
+                        'description'], axis=1)
 
-#df_full.to_csv('dataset_clean.csv', header=True, index_label=id)
+# df_full.to_csv('dataset_clean.csv', header=True, index_label=id)
 
-#categoricals = ['typedebien', 'ville','idtypechauffage', 'idtypecuisine','codepostal','codeinsee']
+# categoricals = ['typedebien', 'ville','idtypechauffage', 'idtypecuisine','codepostal','codeinsee']
 categoricals = ['typedebien', 'idtypechauffage', 'idtypecuisine', 'codepostal']
-binaries = ['si_balcon','si_sdbain','si_sdEau']
-#numericals = ['nb_chambres', 'nb_pieces', 'nb_photos', 'etage', 'surface', 'dpeC']
+binaries = ['si_balcon', 'si_sdbain', 'si_sdEau']
+# numericals = ['nb_chambres', 'nb_pieces', 'nb_photos', 'etage', 'surface', 'dpeC']
 numericals = ['nb_chambres', 'nb_pieces', 'etage', 'surface', 'dpeC']
 text = ['description']
 
@@ -281,13 +288,11 @@ mape = np.mean(np.abs((y_train-y_train_pred)/y_train))
 # In[37]:
 
 
-from os import getcwd, mkdir, path
 
-model_file_name = 'realestate-model-' + now.strftime("%Y-%d-%m-%Hh%Ms") + '-rmsle-' + '{:.3f}'.format(valid_rmsle) + '.pkl'
-base_dir = path.dirname(getcwd())
-model_dir = base_dir + '/models'
-if not path.exists(model_dir):
-    mkdir(model_dir)
+
+model_file_name = 'realestate-model-' + now.strftime("%Y-%d-%m-%Hh%Mm") + '-rmsle-' + '{:.3f}'.format(valid_rmsle) + '.pkl'
+
+
 model_path = path.join(model_dir, model_file_name)
 model_path
 
