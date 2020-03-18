@@ -16,21 +16,19 @@ RUN dos2unix /app/init.sh
 
 WORKDIR /app/python
 
+RUN wget https://dl.google.com/linux/direct/google-chrome-beta_current_amd64.deb
+RUN apt install  apt install --fix-broken  ./google-chrome-beta_current_amd64.deb
+
 RUN /usr/local/bin/python -m pip install --upgrade pip
 RUN /usr/local/bin/python -m pip install -r requirements.txt
 
-COPY ./selenium_scrapper_container/scrapping.cron /etc/crond.d/scrapping.cron
-RUN dos2unix /etc/crond.d/scrapping.cron
-RUN chmod 0644 /etc/crond.d/scrapping.cron
-RUN crontab -u root /etc/crond.d/scrapping.cron
-RUN touch /var/log/cron.log
+CMD tail -f /dev/null
 
-#CMD cron && tail -f /var/log/cron.log
-CMD ["/bin/sh", "/app/init.sh"]
+# COPY ./selenium_scrapper_container/scrapping.cron /etc/crond.d/scrapping.cron
+# RUN dos2unix /etc/crond.d/scrapping.cron
+# RUN chmod 0644 /etc/crond.d/scrapping.cron
+# RUN crontab -u root /etc/crond.d/scrapping.cron
+# RUN touch /var/log/cron.log
 
-CMD ["/bin/sh", "-c", "sleep 1000"]
-
-
-#WORKDIR /app/www
-#ENTRYPOINT [ "python" ]
-#CMD [ "app.py" ]
+# CMD ["/bin/sh", "/app/init.sh"]
+# CMD ["/bin/sh", "-c", "sleep 1000"]
