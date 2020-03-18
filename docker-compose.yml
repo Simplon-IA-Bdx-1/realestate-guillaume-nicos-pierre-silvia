@@ -3,6 +3,7 @@ version: '3.7'
 services:
   database:
     image: mysql:latest
+    container_name: database
     environment:
       - MYSQL_RANDOM_ROOT_PASSWORD=yes
       - MYSQL_USER=realestate
@@ -18,6 +19,7 @@ services:
     command: --default_authentication_plugin=mysql_native_password
   adminer:
     image: dehy/adminer
+    container_name: adminer
     networks:
       - database_net
     ports:
@@ -55,8 +57,8 @@ services:
     build:
       context: ./
       dockerfile: ./selenium_scrapper_container/Dockerfile
-    container_name: selenium_scrapper_container
-    image: selenium_scrapper_container_img
+    container_name: selenium_container
+    image: selenium_container
     restart: always
     networks:
       - database_net
@@ -64,6 +66,7 @@ services:
 networks:
   database_net:
     driver: bridge
+    name: database_net
 
 volumes:
   database_data:
