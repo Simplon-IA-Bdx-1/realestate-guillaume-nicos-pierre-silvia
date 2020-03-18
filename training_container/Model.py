@@ -309,3 +309,26 @@ dump(full_pipe, model_path)
 from glob import glob
 max(glob(path.join(model_dir, 'realestate-model-*.pkl')))
 
+# ## metrics into database
+
+import mysql.connector
+
+def connectToDatabase():
+    return mysql.connector.connect(user='realestate', password='realestate',
+                              host='127.0.0.1',
+                              database='realestate')
+def createCursor(cnx):
+    return cnx.cursor(dictionary=True)
+def insertModelQuery(model_name,r2,rmse,rmsle, msle, mape):
+    return ("INSERT INTO `models` (`model_name`, `r2`,`rmse`, `rmsle`,`msle`, `mape`) VALUES ('{}', '{}','{}', '{}','{}', '{}')".format(model_name,r2,rmse,rmsle, msle, mape))
+def closeCursor(cursor):
+    cursor.close()
+def disconnectDatabase(cnx):
+    cnx.close()
+
+cnx = connectToDatabase()
+cursor = createCursor(cnx)
+cursor.execute(insertModelQuery(model_file_name,r2,rmse,rmsle, msle, mape))
+cnx.commit()
+closeCursor(cursor)
+disconnectDatabase(cnx)
