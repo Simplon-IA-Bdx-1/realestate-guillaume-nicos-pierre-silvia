@@ -23,4 +23,4 @@
 
 ## Site **SelogerML**:
 
-<p align="center"><img src="https://zupimages.net/up/20/12/omsq.png" width="300"></p>
+<p align="center"><img src="https://zupimages.net/up/20/12/omsq.png"></p>
