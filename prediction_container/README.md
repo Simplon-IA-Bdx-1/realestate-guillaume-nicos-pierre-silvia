@@ -1,14 +1,26 @@
-{
-    "typedebien" : "Appartement",
-    "codepostal" : "33000",
-    "surface" : "2000",
-    "nb_pieces" : "5",
-    "idtypechauffage" : "électrique",
-    "idtypecuisine" : "aucune",
-    "si_balcon" : 0,
-    "nb_chambres" : 3,
-    "si_sdbain" : 1,
-    "si_sdEau" : 1,
-    "etage" : 3,
-    "dpeC" : 70
-}
+# API with Flask
+
+## Project Structure
+
+```
+|__ Dockerfile 
+|__ README.md 
+|__ requirements.txt
+|__ www
+    |__ app.py
+    |__ templates
+        |__ formulaire.html
+        |__ resultats.html
+```
+## Project details
+
+* JSON request (GET and POST) [app.py](https://github.com/Simplon-IA-Bdx-1/realestate-guillaume-nicos-pierre-silvia/blob/dev/prediction_container/www/app.py)
+
+* html pages [templates](https://github.com/Simplon-IA-Bdx-1/realestate-guillaume-nicos-pierre-silvia/tree/dev/prediction_container/www/templates)
+
+
+## Navigate to http://localhost:8081
+
+## Site **SelogerML**:
+
+<p align="center"><img src="Annotation1.png" width="400"></p>
