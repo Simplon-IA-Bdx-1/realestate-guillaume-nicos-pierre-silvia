@@ -314,9 +314,9 @@ max(glob(path.join(model_dir, 'realestate-model-*.pkl')))
 import mysql.connector
 
 def connectToDatabase():
-    return mysql.connector.connect(user='realestate', password='realestate',
-                              host='127.0.0.1',
-                              database='realestate')
+    return mysql.connector.connect(user=MYSQL_USER, password=MYSQL_PASSWORD,
+                              host=MYSQL_HOST,
+                              database=MYSQL_DATABASE)
 def createCursor(cnx):
     return cnx.cursor(dictionary=True)
 def insertModelQuery(model_name,r2,rmse,rmsle, msle, mape):
