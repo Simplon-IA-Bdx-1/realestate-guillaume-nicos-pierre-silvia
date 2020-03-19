@@ -312,6 +312,7 @@ max(glob(path.join(model_dir, 'realestate-model-*.pkl')))
 # ## metrics into database
 
 import mysql.connector
+import dotenv
 
 def connectToDatabase():
     return mysql.connector.connect(user=MYSQL_USER, password=MYSQL_PASSWORD,
