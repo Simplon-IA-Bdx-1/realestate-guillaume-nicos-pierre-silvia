@@ -30,13 +30,16 @@ if not path.exists(model_dir):
     mkdir(model_dir)
 csv_filename = 'fulltrain-' + now.strftime("%Y-%d-%m-%Hh%Mm") + '.csv'
 csv_path = path.join(model_dir, csv_filename)
+
+print("retrieving dataset from database")
 cnx = connectToDatabase()
 to_csv(csv_path, get_all_annonces(cnx))
-
+print("Done")
 SEED=42
 
 #get_ipython().system('../scrapper/scrapper.py csv --file ./fulltrain.csv')
 
+print("cleaning dataset")
 df_full = read_csv(csv_path, index_col='idannonce')
 
 chauffageNArows = df_full['idtypechauffage'] == 0
@@ -67,37 +70,22 @@ binaries = ['si_balcon', 'si_sdbain', 'si_sdEau']
 # numericals = ['nb_chambres', 'nb_pieces', 'nb_photos', 'etage', 'surface', 'dpeC']
 numericals = ['nb_chambres', 'nb_pieces', 'etage', 'surface', 'dpeC']
 text = ['description']
-
+print("Done")
 
 # ### Categorical features
 
-# In[17]:
-
-
-for col in categoricals:
-    print(df_full[col].unique())
-
-
-# In[18]:
-
+#for col in categoricals:
+#    print(df_full[col].unique())
 
 categorical_pipe = Pipeline([
     ('imputer', SimpleImputer(strategy='most_frequent')),
     ('onehot', OneHotEncoder(handle_unknown="ignore"))
 ])
 
-
 # ### Binary features
 
-# In[19]:
-
-
-for col in binaries:
-    print(df_full[col].unique())
-
-
-# In[20]:
-
+#for col in binaries:
+#    print(df_full[col].unique())
 
 binary_pipe = Pipeline([
     ('imputer', SimpleImputer(strategy='most_frequent'))
@@ -106,14 +94,11 @@ binary_pipe = Pipeline([
 
 # ### Numerical features
 
-# In[21]:
-
-
 numerical_pipe = Pipeline([
     ('imputer', SimpleImputer(strategy='mean')),
-    #('poly', PolynomialFeatures(degree=2)),
+    # ('poly', PolynomialFeatures(degree=2)),
     ('power',  PowerTransformer()),
-    #('scaler', StandardScaler())
+    # ('scaler', StandardScaler())
 ])
 
 
@@ -145,8 +130,8 @@ output_pipe = Pipeline([
 # In[24]:
 
 
-rdgRegressor = Ridge()
-xgbRegressor = XGBRegressor(booster="gbtree")
+#rdgRegressor = Ridge()
+#xgbRegressor = XGBRegressor(booster="gbtree")
 svrRegressor = SVR(kernel='rbf', C=0.8)
 
 
@@ -164,15 +149,7 @@ model = Pipeline([
 
 full_pipe = TransformedTargetRegressor(regressor=model, transformer=output_pipe)
 
-
-# In[27]:
-
-
-dump(full_pipe,'pipeline-model.joblib')
-
-
-# In[28]:
-
+#dump(full_pipe,'pipeline-model.joblib')
 
 from sklearn.model_selection import train_test_split
 target_column = "prix"
@@ -180,6 +157,7 @@ target_column = "prix"
 X_fulltrain = df_full.drop(target_column, axis=1)
 y_fulltrain = df_full[target_column]
 
+print("training")
 X_train, X_valid, y_train, y_valid = train_test_split(X_fulltrain, y_fulltrain, test_size=0.2, random_state=SEED)
 
 
@@ -189,44 +167,43 @@ X_train, X_valid, y_train, y_valid = train_test_split(X_fulltrain, y_fulltrain, 
 
 
 full_pipe.fit(X_train,y_train);
-
+print("Done")
 
 # ### Mean regressor baseline
 
 # In[30]:
 
 
-y_valid_pred = [np.mean(y_train)] * y_valid.shape[0]
-r2 = r2_score(y_valid, y_valid_pred)
-rmse = np.sqrt(mean_squared_error(y_valid, y_valid_pred))
-rmsle = np.sqrt(mean_squared_error(np.log(y_valid), np.log(y_valid_pred)))
-msle = (mean_squared_error(np.log(y_valid), np.log(y_valid_pred)))
-mape = np.mean(np.abs((y_valid-y_valid_pred)/y_valid))
-#print(f"r2 = {r2}\nrmse = {rmse}\nmsle = {msle}\nrmsle = {rmsle}\nmape = {mape}")
+#y_valid_pred = [np.mean(y_train)] * y_valid.shape[0]
+#r2 = r2_score(y_valid, y_valid_pred)
+#rmse = np.sqrt(mean_squared_error(y_valid, y_valid_pred))
+#rmsle = np.sqrt(mean_squared_error(np.log(y_valid), np.log(y_valid_pred)))
+#msle = (mean_squared_error(np.log(y_valid), np.log(y_valid_pred)))
+#mape = np.mean(np.abs((y_valid-y_valid_pred)/y_valid))
+#print(f"    r2 = {r2}\nrmse = {rmse}\nmsle = {msle}\nrmsle = {rmsle}\nmape = {mape}")
 
 
 # ### Cross validation
 
 # In[31]:
 
-
+print("cross validation:")
 scores = cross_val_score(full_pipe, X_fulltrain, y=y_fulltrain, cv=10)
-#print(f'mean R2 = {np.mean(scores)} +/- {np.std(scores)}')
-scores
+print(f'    mean R2 = {np.mean(scores)} +/- {np.std(scores)}')
+#scores
 
 
 # ### Valid evaluation
-
-# In[32]:
-
-
+print("evaluating:")
 y_valid_pred = full_pipe.predict(X_valid)
 valid_r2 = r2_score(y_valid, y_valid_pred)
 valid_rmse = np.sqrt(mean_squared_error(y_valid, y_valid_pred))
-valid_rmsle = np.sqrt(mean_squared_error(np.log(y_valid), np.log(y_valid_pred)))
+valid_rmsle = np.sqrt(mean_squared_error(np.log(y_valid),
+                                         np.log(y_valid_pred)))
 valid_msle = (mean_squared_error(np.log(y_valid), np.log(y_valid_pred)))
 valid_mape = np.mean(np.abs((y_valid-y_valid_pred)/y_valid))
-#print(f'r2 = {valid_r2}\nrmse = {valid_rmse}\nmsle = {valid_msle}\nrmsle = {valid_rmsle}\nmape = {valid_mape}')
+
+print(f'\tr2 = {valid_r2}\n\trmse = {valid_rmse}\n\tmsle = {valid_msle}\n\trmsle = {valid_rmsle}\n\tmape = {valid_mape}')
 #grid = sns.JointGrid(y_valid, y_valid_pred)
 #grid = grid.plot(sns.regplot, sns.distplot)
 #grid.ax_joint.plot([0,2500], [0,2500], 'r');
@@ -237,99 +214,75 @@ valid_mape = np.mean(np.abs((y_valid-y_valid_pred)/y_valid))
 # In[33]:
 
 
-y_train_pred = full_pipe.predict(X_train)
-r2 = r2_score(y_train, y_train_pred)
-rmse = np.sqrt(mean_squared_error(y_train, y_train_pred))
-rmsle = np.sqrt(mean_squared_error(np.log(y_train), np.log(y_train_pred)))
-msle = (mean_squared_error(np.log(y_train), np.log(y_train_pred)))
-mape = np.mean(np.abs((y_train-y_train_pred)/y_train))
+#y_train_pred = full_pipe.predict(X_train)
+#r2 = r2_score(y_train, y_train_pred)
+#rmse = np.sqrt(mean_squared_error(y_train, y_train_pred))
+#rmsle = np.sqrt(mean_squared_error(np.log(y_train), np.log(y_train_pred)))
+#msle = (mean_squared_error(np.log(y_train), np.log(y_train_pred)))
+#mape = np.mean(np.abs((y_train-y_train_pred)/y_train))
 #print(f'r2 = {r2}\nrmse = {rmse}\nmsle = {msle}\nrmsle = {rmsle}\nmape = {mape}')
 #grid = sns.JointGrid(y_train, y_train_pred)
 #grid = grid.plot(sns.regplot, sns.distplot)
 #grid.ax_joint.plot([0,2500], [0,2500], 'r');
 
-
-# ### Error analysis
-
-# In[34]:
-
-
-#grid = sns.JointGrid(y_valid, (y_valid_pred-y_valid)/y_valid )
-#grid = grid.plot(sns.regplot, sns.distplot)
-#grid.ax_joint.plot([0,2500], [0,0], 'r');
-
-
-# #### over estimated
-
-# In[35]:
-
-
-#errors = ((y_valid_pred-y_valid)/y_valid) > 0.5
-#error_df = X_valid.loc[errors,:]
-#error_df.loc[errors,'prix'] = y_valid.loc[errors]
-#error_df.loc[errors,'pred'] = y_valid_pred[errors]
-#error_df
-
-
-# #### under estimated
-
-# In[36]:
-
-
-#errors = (y_valid_pred-y_valid)/y_valid < -0.4
-#error_df = X_valid.loc[errors,:]
-#error_df.loc[errors,'prix'] = y_valid.loc[errors]
-#error_df.loc[errors,'pred'] = y_valid_pred[errors]
-#error_df
-
-
 # ## export model
 
-# In[37]:
-
-
-
-
-model_file_name = 'realestate-model-' + now.strftime("%Y-%d-%m-%Hh%Mm") + '-rmsle-' + '{:.3f}'.format(valid_rmsle) + '.pkl'
+model_file_name = 'realestate-model-'\
+                  + now.strftime("%Y-%d-%m-%Hh%Mm")\
+                  + '-mape-'\
+                  + '{:.3f}'.format(valid_mape)\
+                  + '.pkl'
 
 
 model_path = path.join(model_dir, model_file_name)
 model_path
 
-
-# In[38]:
-
-
+print("saving model:")
 dump(full_pipe, model_path)
+print(f"    {model_file_name}")
 
-
-# In[39]:
-
-
-from glob import glob
-max(glob(path.join(model_dir, 'realestate-model-*.pkl')))
+#from glob import glob
+#max(glob(path.join(model_dir, 'realestate-model-*.pkl')))
 
 # ## metrics into database
 
 import mysql.connector
-import dotenv
+from dotenv import load_dotenv
+from os import getenv
+
 
 def connectToDatabase():
-    return mysql.connector.connect(user=MYSQL_USER, password=MYSQL_PASSWORD,
-                              host=MYSQL_HOST,
-                              database=MYSQL_DATABASE)
+    load_dotenv()
+    return mysql.connector.connect(
+        user=getenv("MYSQL_USER"),
+        password=getenv("MYSQL_PASSWORD"),
+        host=getenv("MYSQL_HOST"),
+        database=getenv("MYSQL_DATABASE")
+    )
+
+
 def createCursor(cnx):
     return cnx.cursor(dictionary=True)
+
+
 def insertModelQuery(model_name,r2,rmse,rmsle, msle, mape):
     return ("INSERT INTO `models` (`model_name`, `r2`,`rmse`, `rmsle`,`msle`, `mape`) VALUES ('{}', '{}','{}', '{}','{}', '{}')".format(model_name,r2,rmse,rmsle, msle, mape))
+
+
 def closeCursor(cursor):
     cursor.close()
+
+
 def disconnectDatabase(cnx):
     cnx.close()
 
+
+print("saving metrics to database")
 cnx = connectToDatabase()
 cursor = createCursor(cnx)
-cursor.execute(insertModelQuery(model_file_name,r2,rmse,rmsle, msle, mape))
+cursor.execute(insertModelQuery(model_file_name, valid_r2, valid_rmse,
+                                valid_rmsle, valid_msle, valid_mape))
 cnx.commit()
 closeCursor(cursor)
 disconnectDatabase(cnx)
+print("Done")
