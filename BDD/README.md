@@ -1,4 +1,7 @@
-# DATABASE
+# DATABASE ANNONCES
+
+## List of appartments
+[01-annonces.sql](https://github.com/Simplon-IA-Bdx-1/realestate-guillaume-nicos-pierre-silvia/blob/dev/BDD/init-db/01-annonces.sql)
 
 ## Structure
 
@@ -86,3 +89,24 @@ Particular Datas explanation :
         <li>G : 451 - ...</li>
     </ul><br/>
 </ul>
+
+--------
+
+# DATABASE MODELS
+
+
+
+## List of metric's values obtained from all models (created: [ICI](https://github.com/Simplon-IA-Bdx-1/realestate-guillaume-nicos-pierre-silvia/blob/dev/training_container/Model.py) )
+
+[ 03-model-database.sql](https://github.com/Simplon-IA-Bdx-1/realestate-guillaume-nicos-pierre-silvia/tree/dev/BDD/init-db)
+
+## Structure
+
+|   Fields  |  Description  |  Example |
+|     :---:    |      :---:      |         :---:         |
+|model_name <br/> | Model name in pickle format | realestate-model-2020-18-03-15h19s-rmsle-0.187.pkl |<br/>
+|r2 <br/> | Metric R2 | 0.794285 |<br/>
+|rmse | Metric RMSE | 174.747 |<br/>
+|msle | Metric MSLE | 0.0210851 |<br/>
+|rmsle | Metric RMSLE | 0.145207 |<br/>
+|mape | Metric MAPE | 0.0940355 |<br/>
