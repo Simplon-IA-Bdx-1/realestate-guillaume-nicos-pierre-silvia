@@ -55,17 +55,17 @@ services:
       - MYSQL_USER=realestate
       - MYSQL_PASSWORD=realestate
       - MYSQL_DATABASE=realestate
-  selenium:
-    build:
-      context: ./
-      dockerfile: ./selenium_scrapper_container/Dockerfile
-    container_name: selenium_container
-    image: selenium_container
-    restart: always
-    networks:
-      - database_net
-    volumes:
-      - ./models:/app/python/pages
+  # selenium:
+  #   build:
+  #     context: ./
+  #     dockerfile: ./selenium_scrapper_container/Dockerfile
+  #   container_name: selenium_container
+  #   image: selenium_container
+  #   restart: always
+  #   networks:
+  #     - database_net
+  #   volumes:
+  #     - ./models:/app/python/pages
 
 networks:
   database_net:
