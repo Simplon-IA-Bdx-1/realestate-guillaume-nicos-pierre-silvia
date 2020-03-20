@@ -64,6 +64,8 @@ services:
     restart: always
     networks:
       - database_net
+    volumes:
+      - ./models:/app/python/pages
 
 networks:
   database_net:
