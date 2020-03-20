@@ -17,20 +17,12 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-      
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/">Nouvelle prédiction</a>
-            </li>
-          </ul>
-        </div>
       </nav>
 
-      <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-          <br /><br />
+      <div class="row" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/91.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;')">
+        <div class="col-md-6"></div>
+        <div class="col-md-6" style="border:2px solid #007bff;padding:10px;background-color: rgba(255,255,255,0.3);">
+          <h2 style="text-align: center">Critères de recherche</h2><br />
           <form action="./predict" method="post">
             <div class="form-group row">
               <label for="typedebien" class="col-sm-4 col-form-label">Type de bien</label>
@@ -135,7 +127,7 @@
             </div>
             
             <div class="form-group row">
-              <label for="si_sdbain" class="col-sm-4 col-form-label">Nombre de salle de bain</label>
+              <label for="si_sdbain" class="col-sm-4 col-form-label">Salle de bain</label>
               <div class="col-sm-8">
                 <select name="si_sdbain" class="form-control">
                   <option value="0" selected>Non</option>
@@ -145,7 +137,7 @@
             </div>
 
             <div class="form-group row">
-              <label for="si_sdEau" class="col-sm-4 col-form-label">Nombre de salle d'eau</label>
+              <label for="si_sdEau" class="col-sm-4 col-form-label">Salle d'eau</label>
               <div class="col-sm-8">
                 <select name="si_sdEau" class="form-control">
                   <option value="0" selected>Non</option>

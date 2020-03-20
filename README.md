@@ -75,7 +75,7 @@ You'll see the logs :
 
 <p align="center"><img src="https://zupimages.net/up/20/12/zens.png"></p>
 
-Scraping will be operated every sunday at 6:00 pm
+Scraping will be operated every sunday at 5:00 pm.
 
 If you try to connect to http://localhost:8081, you will see :
 
