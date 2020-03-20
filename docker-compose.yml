@@ -13,6 +13,8 @@ services:
       - database_net
     ports:
       - 3306:3306
+    security_opt:
+      - seccomp:unconfined
     volumes:
       - database_data:/var/lib/mysql
       - ./BDD/init-db:/docker-entrypoint-initdb.d
