@@ -25,7 +25,7 @@ PRIMARY KEY (`model_name`)
 
 CREATE TABLE `current_model`
 (
- `id`         enum(1) NOT NULL ,
+ `id`         enum('1') NOT NULL ,
  `model_name` varchar(255) NOT NULL ,
 
 PRIMARY KEY (`id`),
