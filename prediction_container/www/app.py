@@ -20,9 +20,19 @@ def connectToDatabase():
     )
 
 
+
 def disconnectDatabase(cnx):
     cnx.close()
 
+def get_current_model(cnx):
+    cursor = cnx.cursor(dictionary=True)
+    cursor.execute("SELECT m.* FROM `models` AS m JOIN `current_model` AS c ON m.model_name = c.model_name")
+    result = cursor.fetchone()
+    cursor.close()
+    disconnectDatabase(cnx)
+    return result
+
+    return get_current_model(cnx)['model_name']
 
 @app.route('/')
 def hello_world():
@@ -48,10 +58,7 @@ def list_models():
 @app.route('/model/current', methods=['GET'])
 def current_model():
     cnx = connectToDatabase()
-    cursor = cnx.cursor(dictionary=True)
-    cursor.execute("SELECT m.* FROM `models` AS m JOIN `current_model` AS c ON m.model_name = c.model_name")
-    result = cursor.fetchone()
-    cursor.close()
+    result = get_current_model(cnx)
     disconnectDatabase(cnx)
     return jsonify({'status': 'OK',
                     'result': result},
@@ -150,16 +157,17 @@ def predict_api():
 
 if __name__ == '__main__':
     cnx = connectToDatabase()
-    cursor = cnx.cursor()
-    cursor.execute("SELECT `model_name` FROM `current_model` LIMIT 1")
-    result = cursor.fetchone()
-    cursor.close()
+    # cursor = cnx.cursor()
+    # cursor.execute("SELECT `model_name` FROM `current_model` LIMIT 1")
+    # result = cursor.fetchone()
+    # cursor.close()
+    result = get_current_model(cnx)
     if result is None:
         cursor = cnx.cursor()
         cursor.execute("SELECT `model_name` FROM `models` ORDER BY `model_name` DESC LIMIT 1")
         result = cursor.fetchone()
     disconnectDatabase(cnx)
-    model_name = result[0]
+    model_name = result['model_name']
     #log.info(model_name)
     file_path = path.join('/app/www/models', model_name)
     model = joblib.load(open(file_path, 'rb'))
