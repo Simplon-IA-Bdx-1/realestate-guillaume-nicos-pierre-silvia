@@ -12,6 +12,12 @@ app = Flask(__name__)
 
 def connectToDatabase():
     #load_dotenv()
+    print(f"""
+user={getenv("MYSQL_USER")},
+password={getenv("MYSQL_PASSWORD")},
+host={getenv("MYSQL_HOST")},
+database={getenv("MYSQL_DATABASE")}
+""")
     return mysql.connector.connect(
         user=getenv("MYSQL_USER"),
         password=getenv("MYSQL_PASSWORD"),
