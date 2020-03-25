@@ -37,7 +37,7 @@ def get_current_model(cnx):
     cursor.close()
     return result
 
-    return get_current_model(cnx)['model_name']
+    #return get_current_model(cnx)['model_name']
 
 @app.route('/')
 def hello_world():
@@ -168,9 +168,10 @@ if __name__ == '__main__':
     # cursor.close()
     result = get_current_model(cnx)
     if result is None:
-        cursor = cnx.cursor()
+        cursor = cnx.cursor(dictionary=True)
         cursor.execute("SELECT `model_name` FROM `models` ORDER BY `model_name` DESC LIMIT 1")
         result = cursor.fetchone()
+        print(result)
         cursor.close()
     disconnectDatabase(cnx)
     model_name = result['model_name']
