@@ -35,7 +35,6 @@ def get_current_model(cnx):
     cursor.execute("SELECT m.* FROM `models` AS m JOIN `current_model` AS c ON m.model_name = c.model_name")
     result = cursor.fetchone()
     cursor.close()
-    disconnectDatabase(cnx)
     return result
 
     return get_current_model(cnx)['model_name']
@@ -172,6 +171,7 @@ if __name__ == '__main__':
         cursor = cnx.cursor()
         cursor.execute("SELECT `model_name` FROM `models` ORDER BY `model_name` DESC LIMIT 1")
         result = cursor.fetchone()
+        cursor.close()
     disconnectDatabase(cnx)
     model_name = result['model_name']
     #log.info(model_name)
