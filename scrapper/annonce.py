@@ -64,7 +64,11 @@ def to_csv(filename, annonces):
         writer = csv.writer(csv_file)
         writer.writerow(annonces[0].fields)
         for annonce in annonces:
-            writer.writerow(annonce.get_all_values())
+            annonce_list = annonce.get_all_values()
+            desc_index = Annonce.fields.index('description')
+            #print(annonce_list[desc_index].replace("\n","\\n").replace("\r","\\r"))
+            annonce_list[desc_index] = annonce_list[desc_index].replace("\n", "\\n").replace("\r", "")
+            writer.writerow(annonce_list)
 
     
 if __name__ == "__main__":
