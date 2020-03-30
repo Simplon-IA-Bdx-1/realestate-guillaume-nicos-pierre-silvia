@@ -1,6 +1,7 @@
 import argparse
 from azureml.core import Run, Dataset
 from os import path
+import numpy as np
 
 output_dir = './Outputs'
 
@@ -23,10 +24,9 @@ df_full.loc[codpostal33rows,'codepostal'] = 33000
 cuisineNArows = df_full['idtypecuisine'] == 0
 df_full.loc[cuisineNArows,'idtypecuisine'] = np.nan
 
-df_full['surface'] = df_full['surface'].str.replace(",", ".").astype(float)
-
-nonzero_surface = df_full['surface'] != 0
+nonzero_surface = (df_full['surface'] != 0) & (~df_full['surface'].isna())
 df_full = df_full.loc[nonzero_surface, :]
+df_full['surface'] = df_full['surface'].str.replace(",", ".").astype(float)
 
 notcolocation_rows = ~(df_full['description'].str.contains("([Cc]oloc)")).astype('Bool')
 df_full = df_full.loc[notcolocation_rows, :]
