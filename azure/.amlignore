@@ -1,0 +1,6 @@
+.ipynb_checkpoints
+.azureml
+.git
+outputs
+data
+.env
