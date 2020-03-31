@@ -1,10 +1,10 @@
 import argparse
 from azureml.core import Run, Dataset
-from os import path
+from os import path, makedirs
 import numpy as np
 import pandas as pd
 
-output_dir = './Outputs'
+output_dir = './outputs'
 
 parser = argparse.ArgumentParser(description='clean a dataset')
 parser.add_argument('--input', required=True)
@@ -38,4 +38,7 @@ df_full = df_full.loc[notcolocation_rows, :]
 df_full = df_full.drop(['id', 'ville', 'codeinsee', 'nb_photos', 'dpeL',
                         'description'], axis=1)
 
+makedirs(output_dir, exist_ok=True)
+
 df_full.to_csv(path.join(output_dir, args.output))
+
