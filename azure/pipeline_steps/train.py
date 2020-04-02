@@ -29,6 +29,11 @@ target_column = "prix"
 X_train = df_train.drop(target_column, axis=1)
 y_train = df_train[target_column]
 
+categoricals = ['typedebien', 'idtypechauffage', 'idtypecuisine', 'codepostal']
+binaries = ['si_balcon', 'si_sdbain', 'si_sdEau']
+numericals = ['nb_chambres', 'nb_pieces', 'etage', 'surface', 'dpeC']
+text = ['description']
+
 categorical_pipe = Pipeline([
     ('imputer', SimpleImputer(strategy='most_frequent')),
     ('onehot', OneHotEncoder(handle_unknown="ignore"))
