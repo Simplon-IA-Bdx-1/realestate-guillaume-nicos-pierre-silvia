@@ -7,7 +7,7 @@ dependencies:
   - pandas==0.24.2
   - scikit-learn==0.22
   - pyarrow==0.16.0
-  - numpy==1.17.4 
+  - numpy==1.18.1
   - pip
   - pip:
     - azureml-dataprep[fuse,pandas]
