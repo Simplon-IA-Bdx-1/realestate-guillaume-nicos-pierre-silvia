@@ -1,0 +1,11 @@
+name: base
+dependencies:
+  - python=3.7.6
+  - pandas==0.24.2
+  - scikit-learn==0.22
+  - pyarrow==0.16.0
+  - pip:
+    - azureml-dataprep[fuse,pandas]
+    - azureml.core
+    - azureml.train
+
