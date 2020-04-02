@@ -1,7 +1,7 @@
 name: base
 channels:
   - conda-forge
-  - default
+  - defaults
 dependencies:
   - python=3.7.6
   - pandas==0.24.2
