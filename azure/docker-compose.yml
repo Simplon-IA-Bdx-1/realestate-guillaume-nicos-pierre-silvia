@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  notebooks:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    container_name: azure_notebooks
+    image: az_note_img
+    ports:
+      - 9888:8888
+    volumes:
+      - ./:/home/jovyan/work
