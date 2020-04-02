@@ -1,5 +1,5 @@
 import argparse
-from azureml.core import Run, Dataset
+from azureml.core import Run, Dataset, Model
 from os import path, makedirs
 import numpy as np
 import pandas as pd
