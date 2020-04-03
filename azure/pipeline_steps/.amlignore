@@ -1,0 +1,8 @@
+.ipynb_checkpoints
+.azureml
+.git
+outputs
+data
+.env
+Dockerfile
+docker-compose.yml

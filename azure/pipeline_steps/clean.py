@@ -14,7 +14,13 @@ args = parser.parse_args()
 
 run_context = Run.get_context()
 input_dataset = run_context.input_datasets[args.input]
-df_full = input_dataset.to_pandas_dataframe()
+
+print(f"input dataset: {input_dataset}")
+
+if isinstance(input_dataset, str):
+    df_full = pd.read_csv(input_dataset, engine='python')
+else:
+    df_full = input_dataset.to_pandas_dataframe()
 
 chauffageNArows = (df_full['idtypechauffage'] == '0') | (df_full['idtypechauffage'] == '') | (df_full['idtypechauffage'] == 'l')
 df_full.loc[chauffageNArows,'idtypechauffage'] = np.nan

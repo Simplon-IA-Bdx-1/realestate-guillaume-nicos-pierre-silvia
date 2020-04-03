@@ -1,16 +1,17 @@
 import argparse
-from azureml.core import Run, Dataset
+from azureml.core import Run  # , Dataset
 from os import path, makedirs
 import numpy as np
-#import pandas as pd
+import pandas as pd
 from sklearn.svm import SVR
-#from datetime import datetime
-from joblib import dump, load
+# from datetime import datetime
+from joblib import dump
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import (StandardScaler, LabelEncoder, PolynomialFeatures,
-                                   OneHotEncoder, OrdinalEncoder, FunctionTransformer,
-                                   PowerTransformer)
+from sklearn.preprocessing import (
+    StandardScaler, LabelEncoder, PolynomialFeatures,
+    OneHotEncoder, OrdinalEncoder, FunctionTransformer,
+    PowerTransformer)
 from sklearn.compose import ColumnTransformer, TransformedTargetRegressor
 
 output_dir = './outputs'
@@ -23,16 +24,26 @@ args = parser.parse_args()
 
 run_context = Run.get_context()
 input_dataset = run_context.input_datasets[args.dataset]
-df_train = input_dataset.to_pandas_dataframe()
 
+if isinstance(input_dataset, str):
+    df_train = pd.read_csv(input_dataset)
+else:
+    df_train = input_dataset.to_pandas_dataframe()
+
+print(f"train size: {df_train.shape}")
+print(df_train.head())
+ 
 target_column = "prix"
 X_train = df_train.drop(target_column, axis=1)
 y_train = df_train[target_column]
+
+X_train = X_train.replace('', np.nan)
 
 categoricals = ['typedebien', 'idtypechauffage', 'idtypecuisine', 'codepostal']
 binaries = ['si_balcon', 'si_sdbain', 'si_sdEau']
 numericals = ['nb_chambres', 'nb_pieces', 'etage', 'surface', 'dpeC']
 text = ['description']
+
 
 categorical_pipe = Pipeline([
     ('imputer', SimpleImputer(strategy='most_frequent')),
@@ -68,9 +79,10 @@ model = Pipeline([
     ('reg', svrRegressor)
 ])
 
-full_pipe = TransformedTargetRegressor(regressor=model, transformer=output_pipe)
+full_pipe = TransformedTargetRegressor(regressor=model,
+                                       transformer=output_pipe)
 
-full_pipe.fit(X_train,y_train);
+full_pipe.fit(X_train, y_train)
 
 makedirs(output_dir, exist_ok=True)
 model_path = path.join(output_dir, args.model)

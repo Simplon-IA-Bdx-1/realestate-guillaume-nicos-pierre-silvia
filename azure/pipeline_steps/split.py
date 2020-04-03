@@ -16,24 +16,28 @@ parser.add_argument('--validsize', required=True)
 args = parser.parse_args()
 
 run_context = Run.get_context()
+print(f'dataset name: {args.dataset}')
 input_dataset = run_context.input_datasets[args.dataset]
-fulltrain = input_dataset.to_pandas_dataframe()
+print(f'input: {input_dataset}')
+print(f'type: {type(input_dataset)}')
+
+if isinstance(input_dataset, str):
+    fulltrain = pd.read_csv(input_dataset)
+else:
+    fulltrain = input_dataset.to_pandas_dataframe()
+
+print(f"fulltrain shape: {fulltrain.shape}")
 
 train_size = int(args.trainsize)
 valid_size = int(args.validsize)
 
-#valid_size = int(validsize)
-#train_size = int(len(input_dataset) - valid_size)
+# valid_size = int(validsize)
+# train_size = int(len(input_dataset) - valid_size)
 
 if args.train:
     train = fulltrain[-train_size-valid_size:-valid_size]
     train.to_csv(path.join(output_dir, args.train))
+    print('Train size:  {}'.format(train.shape))
 valid = fulltrain[-valid_size:]
 valid.to_csv(path.join(output_dir, args.valid))
-
-print('Dataset:  {}'.format(input_dataset))
-print('Train name:  {}'.format(train))
-print('Valid name:  {}'.format(valid))
-print('Train size:  {}'.format(train_size))
-print('Valid size:  {}'.format(valid_size))
-
+print('Valid size:  {}'.format(valid.shape))
